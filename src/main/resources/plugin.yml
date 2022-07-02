@@ -1,0 +1,11 @@
+name: MultiSpawn
+version: '${project.version}'
+main: pl.gduraj.multispawn.MultiSpawn
+api-version: 1.18
+commands:
+  setspawn:
+    description: Ustaw spawn point na twojej aktualnej pozycji
+    usage: /<command> <name>
+  spawn:
+    description: Teleportacja do podanego spawn point'a
+    usage: /<command> [name] [player]
