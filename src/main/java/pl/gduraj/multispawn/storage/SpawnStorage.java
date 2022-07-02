@@ -1,8 +1,10 @@
-package pl.gduraj.multispawn;
+package pl.gduraj.multispawn.storage;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import pl.gduraj.multispawn.MultiSpawn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class SpawnStorage {
 
         synchronized (spawns) {
             spawns.put(name, loc);
-            config.set("spawns."+name, loc);
+            config.set("spawns."+name+".location", loc);
             plugin.getConfigManager().save();
         }
     }
@@ -47,7 +49,7 @@ public class SpawnStorage {
         synchronized (spawns){
             if(!spawns.containsKey(name)){
                 if(spawns.containsKey("default")){
-                    return spawns.get("spawn");
+                    return spawns.get("default");
                 }
 
                 return getWorldSpawn();
@@ -64,6 +66,10 @@ public class SpawnStorage {
             return world.getSpawnLocation();
         }
         return plugin.getServer().getWorlds().get(0).getSpawnLocation();
+    }
+
+    public void teleportPlayer(Player player, String name){
+        player.teleport(getSpawn(name));
     }
 
 

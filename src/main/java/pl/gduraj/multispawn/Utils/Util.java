@@ -1,7 +1,8 @@
-package pl.gduraj.multispawn;
+package pl.gduraj.multispawn.Utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import pl.gduraj.multispawn.MultiSpawn;
 
 public class Util {
 

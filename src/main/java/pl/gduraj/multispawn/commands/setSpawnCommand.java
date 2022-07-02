@@ -5,9 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.gduraj.multispawn.MultiSpawn;
-import pl.gduraj.multispawn.Util;
-
-import java.util.regex.Pattern;
 
 public class setSpawnCommand implements CommandExecutor {
 
@@ -15,7 +12,6 @@ public class setSpawnCommand implements CommandExecutor {
 
     public setSpawnCommand() {
         this.plugin = MultiSpawn.getInstance();
-        this.plugin.getCommand("setSpawn").setExecutor(this::onCommand);
     }
 
     @Override
