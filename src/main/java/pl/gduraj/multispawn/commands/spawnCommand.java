@@ -18,11 +18,12 @@ public class spawnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!(sender instanceof Player)){
-            if(args.length > 0){
-                String name = args[0];
-                Player target = Bukkit.getPlayer(args[1]);
+        String name = args[0];
 
+        if(args.length > 0) {
+
+            if(!(sender instanceof Player)){
+                Player target = Bukkit.getPlayer(args[1]);
                 if(target == null){
                     sender.sendMessage(plugin.getConfigManager().getMSG("offlinePlayer"));
                     return true;
@@ -30,24 +31,29 @@ public class spawnCommand implements CommandExecutor {
 
                 plugin.getSpawnStorage().teleportPlayer(target, name);
                 return true;
-            }else {
-                sender.sendMessage(plugin.getConfigManager().getMSG("usageSpawn"));
+            }
+
+            Player player = (Player) sender;
+
+            if(!player.hasPermission("multispawn.command.spawn")){
+                player.sendMessage(plugin.getConfigManager().getMSG("noPermission"));
                 return true;
             }
-        }
 
-        Player player = (Player) sender;
+            Player target = Bukkit.getPlayer(args[1]);
 
-        if(!player.hasPermission("multispawn.command.spawn")){
-            player.sendMessage(plugin.getConfigManager().getMSG("noPermission"));
+            if(target == null){
+                sender.sendMessage(plugin.getConfigManager().getMSG("offlinePlayer"));
+                return true;
+            }
+
+            plugin.getSpawnStorage().teleportPlayer(target, name);
+            return true;
+
+        }else {
+            sender.sendMessage(plugin.getConfigManager().getMSG("usageSpawn"));
             return true;
         }
 
-        if(args.length > 0) {
-
-        }
-
-
-        return true;
     }
 }

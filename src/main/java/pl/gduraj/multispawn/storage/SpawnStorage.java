@@ -1,5 +1,6 @@
 package pl.gduraj.multispawn.storage;
 
+import io.papermc.lib.PaperLib;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -69,7 +70,14 @@ public class SpawnStorage {
     }
 
     public void teleportPlayer(Player player, String name){
-        player.teleport(getSpawn(name));
+
+        PaperLib.teleportAsync(player, getSpawn(name)).thenAccept(result -> {
+            if(result){
+                player.sendMessage("Teleported!");
+            }else {
+                player.sendMessage("ERROR");
+            }
+        });
     }
 
 

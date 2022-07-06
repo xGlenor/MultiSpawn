@@ -1,8 +1,7 @@
-settings:
 message:
-  noPermission: "&cNie posiadasz wystarczających permisji"
-  setSpawn: "&aGratulacje ustawiłeś spawn: %name%"
-  onlyPlayer: "&cTą komendę może użyć tylko gracz"
-  validateError: "&bBlad w nazwie spawnu"
-
+  noPermission: '&cNie posiadasz wystarczających permisji'
+  setSpawn: '&aGratulacje ustawiłeś spawn: %name%'
+  onlyPlayer: '&cTą komendę może użyć tylko gracz'
+  validateError: '&bBlad w nazwie spawnu'
+  usageSpawn: '&cUsage: &f/spawn [<name>] [<player>]'
 spawns:

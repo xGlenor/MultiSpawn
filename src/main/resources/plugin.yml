@@ -2,6 +2,8 @@ name: MultiSpawn
 version: '${project.version}'
 main: pl.gduraj.multispawn.MultiSpawn
 api-version: 1.18
+softdepend:
+  - CMI
 commands:
   setspawn:
     description: Ustaw spawn point na twojej aktualnej pozycji

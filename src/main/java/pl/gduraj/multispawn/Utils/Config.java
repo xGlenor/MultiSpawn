@@ -26,7 +26,6 @@ public class Config {
 
     }
 
-
     public void saveDefault(){
         if(!file.exists()){
             plugin.saveResource("spawn.yml", false);
@@ -69,7 +68,7 @@ public class Config {
     }
 
     public String getMSG(String path) {
-        return Util.color(getConfig().getString("message."+path));
+        return Util.color(config.getString("message."+path));
     }
 
 
