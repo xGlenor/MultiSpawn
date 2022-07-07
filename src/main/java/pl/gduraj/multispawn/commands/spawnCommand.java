@@ -1,10 +1,12 @@
 package pl.gduraj.multispawn.commands;
 
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import pl.gduraj.multispawn.MultiSpawn;
 
 public class spawnCommand implements CommandExecutor {
@@ -39,15 +41,37 @@ public class spawnCommand implements CommandExecutor {
                 player.sendMessage(plugin.getConfigManager().getMSG("noPermission"));
                 return true;
             }
+            
+            if(args.length == 1) {
+                if(args[0].equals("r")){
+                    plugin.getSpawnStorage().teleportRandomSpawn(player);
+                    return true;
+                }else if(args[0].equals("-r")){
+                    plugin.getSpawnStorage().reloadSpawn();
+                    player.sendMessage("reload");
+                    return true;
+                }
+                plugin.getSpawnStorage().teleportPlayer(player, name);
+                return true;
+            } else if (args.length == 2) {
 
-            Player target = Bukkit.getPlayer(args[1]);
+                if(!player.hasPermission("multispawn.command.spawn.others")){
+                    player.sendMessage(plugin.getConfigManager().getMSG("noPermission"));
+                    return true;
+                }
 
-            if(target == null){
-                sender.sendMessage(plugin.getConfigManager().getMSG("offlinePlayer"));
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if(target == null){
+                    sender.sendMessage(plugin.getConfigManager().getMSG("offlinePlayer"));
+                    return true;
+                }
+
+                plugin.getSpawnStorage().teleportPlayer(target, name);
                 return true;
             }
 
-            plugin.getSpawnStorage().teleportPlayer(target, name);
+            sender.sendMessage(plugin.getConfigManager().getMSG("usageSpawn"));
             return true;
 
         }else {

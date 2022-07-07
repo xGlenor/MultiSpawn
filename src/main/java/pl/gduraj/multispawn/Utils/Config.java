@@ -50,6 +50,7 @@ public class Config {
 
     public void reload(){
         config = YamlConfiguration.loadConfiguration(file);
+        saveDefault();
     }
 
     public FileConfiguration getConfig(){
@@ -61,9 +62,10 @@ public class Config {
         Map<String, Location> result = new HashMap<>();
 
         for (String locStr : section.getKeys(false)){
-            result.put(locStr, Util.getLocation(locStr+".location"));
+            result.put(locStr, Util.getLocation("spawns."+locStr+".location"));
         }
 
+        System.out.println(result);
         return result;
     }
 

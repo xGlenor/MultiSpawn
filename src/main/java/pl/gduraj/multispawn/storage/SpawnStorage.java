@@ -5,10 +5,13 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import pl.gduraj.multispawn.MultiSpawn;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class SpawnStorage {
 
@@ -20,6 +23,15 @@ public class SpawnStorage {
         this.plugin = MultiSpawn.getInstance();
         this.config = plugin.getConfig();
         this.spawns = new HashMap<>();
+        loadSpawn();
+    }
+
+
+    public void loadSpawn(){
+        synchronized (spawns) {
+            spawns.clear();
+            spawns.putAll(plugin.getConfigManager().getLocationSectionMap("spawns"));
+        }
     }
 
     public void reloadSpawn(){
@@ -71,7 +83,7 @@ public class SpawnStorage {
 
     public void teleportPlayer(Player player, String name){
 
-        PaperLib.teleportAsync(player, getSpawn(name)).thenAccept(result -> {
+        PaperLib.teleportAsync(player, getSpawn(name), PlayerTeleportEvent.TeleportCause.COMMAND).thenAccept(result -> {
             if(result){
                 player.sendMessage("Teleported!");
             }else {
@@ -80,5 +92,18 @@ public class SpawnStorage {
         });
     }
 
+    public void teleportRandomSpawn(Player player){
+        teleportPlayer(player, getRandomSpawn());
+    }
+
+    public String getRandomSpawn(){
+        Random rand = new Random();
+        List<String> randomSpawns = config.getStringList("settings.randomSpawns");
+
+        if(randomSpawns.isEmpty())
+            return "defaults";
+
+        return randomSpawns.get(rand.nextInt(randomSpawns.size()));
+    }
 
 }

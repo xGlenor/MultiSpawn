@@ -1,3 +1,11 @@
+settings:
+  FirstJoinPlayer:
+    enable: true
+  deathRandom: true
+  randomSpawns:
+    - 'default'
+    - 'miasto'
+
 message:
   noPermission: '&cNie posiadasz wystarczających permisji'
   setSpawn: '&aGratulacje ustawiłeś spawn: %name%'
